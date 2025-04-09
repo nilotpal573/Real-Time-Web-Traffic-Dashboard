@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Web Traffic Dashboard</title>
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header>
+            <h1><i class="fas fa-chart-line"></i> Real-Time Traffic Dashboard</h1>
+        </header>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <span class="stat-value" id="total-visitors">0</span>
+                <span class="stat-label">Total Visitors</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="active-visitors">0</span>
+                <span class="stat-label">Active Now</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="unique-countries">0</span>
+                <span class="stat-label">Countries</span>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="trafficChart" width="400" height="200"></canvas>
+        </div>
+
+        <div class="visitor-list-container">
+            <h2><i class="fas fa-users"></i> Recent Visitors</h2>
+            <ul id="visitor-list"></ul>
+        </div>
+
+        <footer>
+            <p>Last updated: <span id="last-updated"></span></p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script>
+        // Update last updated time
+        function updateTimestamp() {
+            const now = new Date();
+            document.getElementById('last-updated').textContent = now.toLocaleTimeString();
+        }
+        setInterval(updateTimestamp, 1000);
+        updateTimestamp();
+    </script>
+</body>
+</html>
